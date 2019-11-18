@@ -1,1 +1,4 @@
-E:\work\kafka_about\kafka-common\src\main\java\com\chengfei\kafka\GetKafkaProducer.java
+E:\work\kafka_about\kafka-common\src\main\java\com\chengfei\kafka\producer\MyPartition.java
+E:\work\kafka_about\kafka-common\src\main\java\com\chengfei\kafka\consumer\GetKafkaConsumer.java
+E:\work\kafka_about\kafka-common\src\main\java\com\chengfei\kafka\producer\SendMessage.java
+E:\work\kafka_about\kafka-common\src\main\java\com\chengfei\kafka\producer\GetKafkaProducer.java

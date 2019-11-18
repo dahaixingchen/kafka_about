@@ -27,8 +27,8 @@ public class SendMessage {
      * @Param [tempStr]
      * @Return void
      **/
-    public static void sendMessage(Producer kafkaProducer, String tempStr) {
-        ProducerRecord<String, String> pr = new ProducerRecord<String, String>("app_history", tempStr);
+    public static void sendMessage(Producer kafkaProducer,String topic, String tempStr) {
+        ProducerRecord<String, String> pr = new ProducerRecord<String, String>(topic, tempStr);
         kafkaProducer.send(pr, new Callback() {
             public void onCompletion(RecordMetadata metadata, Exception e) {
                 if (metadata == null) {
@@ -49,8 +49,8 @@ public class SendMessage {
       * @Param [kafkaProducer, tempStr]
       * @Return void
       **/
-    public static void sendMessageOnece(Producer kafkaProducer, String tempStr) {
-        ProducerRecord<String, String> record = new ProducerRecord<String, String>("add_history", tempStr);
+    public static void sendMessageOnece(Producer kafkaProducer,String topic, String tempStr) {
+        ProducerRecord<String, String> record = new ProducerRecord<String, String>( topic, tempStr);
         kafkaProducer.initTransactions();
 
         kafkaProducer.beginTransaction();
