@@ -162,5 +162,33 @@ public class GetKafkaProducer {
         return new KafkaProducer(pro);
     }
 
+    /**
+      * 具有幂等操作性的生产者
+      * @Date 2019/11/18 9:28
+      * @methodName getIdempotenceKafkaProducer
+      * @Param []
+      * @Return org.apache.kafka.clients.producer.Producer
+      **/
+    public  Producer getIdempotenceKafkaProducer(){
+        Properties pro = new Properties();
+        //必要参数
+        pro.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,bootstrap_servers);
+        //保证消息不丢失
+        pro.put(ProducerConfig.ACKS_CONFIG, acks);//消息的确认机制,1表示对应topic的leader确认了就算成功，-1(all)表示leader和对应所有的副本,0表示无确认
+        pro.put(ProducerConfig.RETRIES_CONFIG,retries);//如果消费发送失败重试的次数0(默认值)
+        //发送消息的吞吐(性能)设置
+        pro.put(ProducerConfig.BUFFER_MEMORY_CONFIG,buffer_memory);//发送一次缓存数据的最大量32M(默认值)
+        pro.put(ProducerConfig.BATCH_SIZE_CONFIG,bach_size);//一个批的数据量16k(默认值)
+        pro.put(ProducerConfig.LINGER_MS_CONFIG,linger_ms);//结合batch_size参数,如果在此设置的时间之内,batch数据没达到也要发送出去,默认是0
+        //消息序列化设置
+        pro.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, key_serializer_class);
+        pro.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,value_serialzer_class);
+        //自定义分区
+        pro.put(ProducerConfig.PARTITIONER_CLASS_CONFIG,partgitioner_class);
+        //开启生产者的幂等操作
+        pro.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG,true);
+        return new KafkaProducer(pro);
+    }
+
 
 }
