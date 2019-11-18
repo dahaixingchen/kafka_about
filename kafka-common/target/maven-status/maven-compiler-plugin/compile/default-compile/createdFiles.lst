@@ -1,4 +1,6 @@
+com\chengfei\kafka\producer\GetKafkaProducer.class
 com\chengfei\kafka\producer\SendMessage.class
+com\chengfei\kafka\producer\MyPartition.class
 com\chengfei\kafka\producer\SendMessage$2.class
 com\chengfei\kafka\consumer\GetKafkaConsumer.class
 com\chengfei\kafka\producer\SendMessage$1.class
