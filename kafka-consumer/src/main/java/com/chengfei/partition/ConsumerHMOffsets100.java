@@ -24,7 +24,7 @@ public class ConsumerHMOffsets100 {
     private static int seeeion_timeout_ms = 6000;
     private static int heartbeat_interval_ms = 2000;
     private static int max_poll_interval_ms = 480000;
-    private static String key_serializer_class  = "org.apache.kafka.common.serialization.StringDeserializer";
+    private static String key_serializer_class = "org.apache.kafka.common.serialization.StringDeserializer";
     private static String value_serialzer_class = "org.apache.kafka.common.serialization.StringDeserializer";
 
     public static void main(String[] args) {
@@ -35,21 +35,21 @@ public class ConsumerHMOffsets100 {
         HashMap<TopicPartition, OffsetAndMetadata> offsetsMap = new HashMap<>();
         int count = 0;
         try {
-            while (true){
+            while (true) {
                 ConsumerRecords<String, String> records = kafkaConsumer.poll(100);
-                for (ConsumerRecord record: records){
+                for (ConsumerRecord record : records) {
                     System.out.printf("offset = %d, key = %s, value = %s%n pritition = %s%n", record.offset(), record.key(), record.value(),
                             record.partition());
                     //手动记录offers，使其不受poll方法的影响
-                    offsetsMap.put(new TopicPartition(record.topic(),record.partition()),new OffsetAndMetadata(record.offset()+1));
+                    offsetsMap.put(new TopicPartition(record.topic(), record.partition()), new OffsetAndMetadata(record.offset() + 1));
                     //每100条数据就提交一次offset
-                    if(count % 100 == 0){
-                        kafkaConsumer.commitAsync(offsetsMap,null);
+                    if (count % 100 == 0) {
+                        kafkaConsumer.commitAsync(offsetsMap, null);
                     }
-                    count ++;
+                    count++;
                 }
             }
-        }finally {
+        } finally {
             kafkaConsumer.commitSync();
             kafkaConsumer.close();
         }

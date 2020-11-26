@@ -27,7 +27,7 @@ public class SendMessage {
      * @Param [tempStr]
      * @Return void
      **/
-    public static void sendMessage(Producer kafkaProducer,String topic, String tempStr) {
+    public static void sendMessage(Producer kafkaProducer, String topic, String tempStr) {
         ProducerRecord<String, String> pr = new ProducerRecord<String, String>(topic, tempStr);
         kafkaProducer.send(pr, new Callback() {
             public void onCompletion(RecordMetadata metadata, Exception e) {
@@ -43,14 +43,15 @@ public class SendMessage {
     }
 
     /**
-      * kafka帶事務屬性的寫入数据
-      * @Date 2019/11/18 10:32
-      * @methodName sendMessageOnece
-      * @Param [kafkaProducer, tempStr]
-      * @Return void
-      **/
-    public static void sendMessageOnece(Producer kafkaProducer,String topic, String tempStr) {
-        ProducerRecord<String, String> record = new ProducerRecord<String, String>( topic, tempStr);
+     * kafka帶事務屬性的寫入数据
+     *
+     * @Date 2019/11/18 10:32
+     * @methodName sendMessageOnece
+     * @Param [kafkaProducer, tempStr]
+     * @Return void
+     **/
+    public static void sendMessageOnece(Producer kafkaProducer, String topic, String tempStr) {
+        ProducerRecord<String, String> record = new ProducerRecord<String, String>(topic, tempStr);
         kafkaProducer.initTransactions();
 
         kafkaProducer.beginTransaction();

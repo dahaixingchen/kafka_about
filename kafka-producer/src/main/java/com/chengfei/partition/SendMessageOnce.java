@@ -24,7 +24,7 @@ public class SendMessageOnce {
     private static Long buffer_memory = 33554432L;
     private static int bach_size = 16384;
     private static Long linger_ms = 100L;
-    private static String key_serializer_class  = "org.apache.kafka.common.serialization.StringSerializer";
+    private static String key_serializer_class = "org.apache.kafka.common.serialization.StringSerializer";
     private static String value_serialzer_class = "org.apache.kafka.common.serialization.StringSerializer";
     private static String partgitioner_class = "com.chengfei.kafka.producer.MyPartition";
     private static String comperssion_type = "lz4";
@@ -41,11 +41,11 @@ public class SendMessageOnce {
         File file = new File(filePath);
 
         try {
-            if (file.exists()){
+            if (file.exists()) {
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-                while ((tempStr = bufferedReader.readLine()) != null){
+                while ((tempStr = bufferedReader.readLine()) != null) {
                     System.out.println(tempStr);
-                    SendMessage.sendMessageOnece(idempotenceKafkaProducer,tempStr);
+//                    SendMessage.sendMessageOnece(idempotenceKafkaProducer,tempStr);
                     Thread.sleep(100);
                 }
             }

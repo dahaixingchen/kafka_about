@@ -24,14 +24,14 @@ public class SendMessage2Partition {
     private static Long buffer_memory = 33554432L;
     private static int bach_size = 16384;
     private static Long linger_ms = 100L;
-    private static String key_serializer_class  = "org.apache.kafka.common.serialization.StringSerializer";
+    private static String key_serializer_class = "org.apache.kafka.common.serialization.StringSerializer";
     private static String value_serialzer_class = "org.apache.kafka.common.serialization.StringSerializer";
     private static String partgitioner_class = "com.chengfei.kafka.producer.MyPartition";
     private static String comperssion_type = "lz4";
 
     public static void main(String[] args) {
-        GetKafkaProducer producer = new GetKafkaProducer(bootstrap_servers,acks,retries,buffer_memory,
-                bach_size,linger_ms,key_serializer_class,value_serialzer_class,partgitioner_class);
+        GetKafkaProducer producer = new GetKafkaProducer(bootstrap_servers, acks, retries, buffer_memory,
+                bach_size, linger_ms, key_serializer_class, value_serialzer_class, partgitioner_class);
 //        GetKafkaProducer producer = new GetKafkaProducer(bootstrap_servers,acks,retries,buffer_memory,
 //                bach_size,linger_ms,key_serializer_class,value_serialzer_class);
         Producer kafkaProducer = producer.getKafkaProducer();
@@ -39,14 +39,13 @@ public class SendMessage2Partition {
         String filePath = "C:\\Users\\feifei\\Desktop\\无标题 4";
         String tempStr = null;
         File file = new File(filePath);
-        
+
         try {
-            if (file.exists()){
+            if (file.exists()) {
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-                while ((tempStr = bufferedReader.readLine()) != null){
-                    System.out.println(tempStr);
-                    SendMessage.sendMessage(kafkaProducer,"add_history",tempStr);
-                    Thread.sleep(100);
+                while ((tempStr = bufferedReader.readLine()) != null) {
+                    SendMessage.sendMessage(kafkaProducer, "app_history", tempStr);
+                    Thread.sleep(500);
                 }
             }
         } catch (FileNotFoundException e) {

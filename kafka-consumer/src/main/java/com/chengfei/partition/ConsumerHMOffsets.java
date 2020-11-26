@@ -21,7 +21,7 @@ public class ConsumerHMOffsets {
     private static int seeeion_timeout_ms = 6000;
     private static int heartbeat_interval_ms = 2000;
     private static int max_poll_interval_ms = 480000;
-    private static String key_serializer_class  = "org.apache.kafka.common.serialization.StringDeserializer";
+    private static String key_serializer_class = "org.apache.kafka.common.serialization.StringDeserializer";
     private static String value_serialzer_class = "org.apache.kafka.common.serialization.StringDeserializer";
 
     public static void main(String[] args) {
