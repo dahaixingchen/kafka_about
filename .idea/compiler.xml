@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="real-time-2log" />
         <module name="kafka-common" />
         <module name="kafka-producer" />
         <module name="kafka-consumer" />
@@ -16,6 +17,7 @@
       <module name="kafka-consumer" target="8" />
       <module name="kafka-producer" target="1.5" />
       <module name="kafka_about" target="1.5" />
+      <module name="real-time-2log" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
