@@ -9,12 +9,14 @@
         <module name="real-time-2log" />
         <module name="kafka-common" />
         <module name="kafka-producer" />
+        <module name="kafka-practice" />
         <module name="kafka-consumer" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="kafka-common" target="1.5" />
       <module name="kafka-consumer" target="8" />
+      <module name="kafka-practice" target="8" />
       <module name="kafka-producer" target="1.5" />
       <module name="kafka_about" target="1.5" />
       <module name="real-time-2log" target="1.8" />

@@ -56,7 +56,10 @@ public class GetKafkaConsumer {
         pro.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);//表示手动提交offsets
 //        pro.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,5000);//如果是自动提交，这个参数的设置表示5s提交一次位移
 
-        pro.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest"); //新的group id就会从头开始消费整个topic的数据
+        //新的group id就会从最新的offse（也就是最大的那个offset）t开始消费整个topic的数据
+//        pro.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+        //新的group id就会从头开始消费整个topic的数据
+        pro.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         //序列化的类
         pro.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, key_serializer_class);
         pro.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, value_serialzer_class);
