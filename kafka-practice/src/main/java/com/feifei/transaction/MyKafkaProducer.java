@@ -31,24 +31,34 @@ public class MyKafkaProducer {
         pro.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         KafkaProducer<String, String> kafkaProducer = new KafkaProducer(pro);
 
+
+        //1.事务初始化操作
+        kafkaProducer.initTransactions();
+
+        //2.开启事务（想要for循环中的代码具有事务操作，下载for的外面）
+        kafkaProducer.beginTransaction();
         for (int i = 0; i < 10; i++) {
 
+            if (i == 5){
+                int i1 = i / 0;
+            }
             ProducerRecord<String, String> record = new ProducerRecord<>("test",0,String.valueOf(i)
-                    ,"xuxu你在哪里啊" + i);
+                    ,"我们是具有事务类型的数据，一个不能，全部不能发送" + i);
             kafkaProducer.send(record, new Callback() {
                 @Override
                 public void onCompletion(RecordMetadata metadata, Exception exception) {
                     System.out.println("已经成功发送");
                     if (exception != null){
                         exception.printStackTrace();
+                        //4.事务终止（只在出现异常的时候写才行）
+                        kafkaProducer.abortTransaction();
                     }
                 }
             });
-            kafkaProducer.send(record);
             System.out.println("消息发送成功");
         }
-
-
+        //3.事务提交（想要for循环中的代码具有事务操作，下载for的外面）
+        kafkaProducer.commitTransaction();
         kafkaProducer.flush();
         kafkaProducer.close();
     }
