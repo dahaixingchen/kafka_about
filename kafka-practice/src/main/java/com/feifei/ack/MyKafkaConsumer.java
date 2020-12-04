@@ -1,9 +1,10 @@
-package com.feifei.queryStart;
+package com.feifei.ack;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.time.Duration;
@@ -17,14 +18,15 @@ import java.util.Properties;
  * @Date 2020/11/28 21:35
  * @Description: TODO 普通消费者代码
  **/
-public class MyKafkaConsumer1 {
+public class MyKafkaConsumer {
     public static void main(String[] args) {
         Properties pro = new Properties();
+//        pro.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"node01:9092,node02:9092,node03:9092");
         pro.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"emr-header-1:9092,emr-worker-1:9092,emr-worker-2:9092");
-        pro.put(ConsumerConfig.GROUP_ID_CONFIG,"g4");
+        pro.put(ConsumerConfig.GROUP_ID_CONFIG,"g44");
         pro.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         pro.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
-        pro.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest"); //earliest,latest
+        pro.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"latest"); //earliest,latest
         KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<String, String>(pro);
 
         //所有的分区都会消费到

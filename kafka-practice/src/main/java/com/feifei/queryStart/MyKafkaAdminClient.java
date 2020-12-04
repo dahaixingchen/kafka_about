@@ -27,10 +27,9 @@ public class MyKafkaAdminClient {
         pro.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG,"node01:9092,node02:9092,node03:9092");
         AdminClient adminClient = KafkaAdminClient.create(pro);
 
-        adminClient.createTopics(Arrays.asList(new NewTopic("topic",3, (short) 2)));
+//        adminClient.createTopics(Arrays.asList(new NewTopic("topic",3, (short) 2)));
 
-
-        logger.info("创建的topic成功");
+//        logger.info("创建的topic成功");
         ListTopicsResult listTopicsResult = adminClient.listTopics();
         Set<String> topics = listTopicsResult.names().get();
         for (String topic : topics) {
