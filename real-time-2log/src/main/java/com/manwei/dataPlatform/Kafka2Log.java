@@ -12,10 +12,13 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Properties;
 
 /**
  * @ClassName: Kafka2Log
@@ -25,7 +28,12 @@ import java.util.Iterator;
  **/
 public class Kafka2Log {
     private static Logger logger = LoggerFactory.getLogger(Kafka2Log.class);
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        InputStream resourceAsStream = Kafka2Log.class.getResourceAsStream("/data.properties");
+        Properties properties = new Properties();
+        properties.load(resourceAsStream);
+        String path = properties.getProperty("data_path");
 
         String bootstrap_servers = "emr-header-1:9092,emr-worker-1:9092,emr-worker-2:9092";
         String group_id = "dataPlatform";
@@ -42,8 +50,7 @@ public class Kafka2Log {
         while (true) {
             try {
                 String day = LocalDate.now().toString();
-//                File file = new File("E:\\tmp\\" + day + ".log");
-                File file = new File("/root/data/log/" + day + ".log");
+                File file = new File(path + day + ".log");
                 if (!file.exists()) {
                     file.createNewFile();
                 }

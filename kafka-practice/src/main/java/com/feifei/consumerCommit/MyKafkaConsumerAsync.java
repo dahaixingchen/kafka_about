@@ -27,16 +27,22 @@ public class MyKafkaConsumerAsync {
         Properties pro = new Properties();
 //        pro.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"node01:9092,node02:9092,node03:9092");
         pro.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "emr-header-1:9092,emr-worker-1:9092,emr-worker-2:9092");
-        pro.put(ConsumerConfig.GROUP_ID_CONFIG, "g4");
+        pro.put(ConsumerConfig.GROUP_ID_CONFIG, "g44");
         pro.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         pro.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         //设置offset手动提交
         pro.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, false);
         pro.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest"); //earliest,latest
+
+        //调用poll方法两次的时间间隔MAX_POLL_INTERVAL_MS_CONFIG，默认是300000
+        pro.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG,3000000);
+
+        //调用poll方法的时候一次拿到消息的最大的值，默认是500
+        pro.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,400);
         KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<String, String>(pro);
 
         //所有的分区都会消费到
-        kafkaConsumer.subscribe(Arrays.asList("topic"));
+        kafkaConsumer.subscribe(Arrays.asList("test"));
         //订阅特定的分区
 //        kafkaConsumer.assign(Collections.singleton(new TopicPartition("topic", 0)));
         int count = 0;
@@ -66,6 +72,7 @@ public class MyKafkaConsumerAsync {
             kafkaConsumer.commitAsync(new OffsetCommitCallback() {
                 @Override
                 public void onComplete(Map<TopicPartition, OffsetAndMetadata> offsets, Exception exception) {
+                    System.out.println(offsets);
                     System.out.println("这是一个offset手动提交后的回调函数");
                 }
             });
